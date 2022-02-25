@@ -16,13 +16,22 @@ class Category(Base):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = ('Categoria')
+        verbose_name_plural = ('Categorias')
+
 class Task(Base):
     name = models.CharField('Nome', max_length=150)
     conclusion_date = models.DateField('Data de Conclusão')
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     file = models.FileField('Arquivo', upload_to='uploads/')
     description = models.TextField('Descrição', max_length=400)
     done = models.BooleanField('Feito?', default=False)
 
     def __str__(self):
         return self.name
+
+
+    class Meta:
+        verbose_name = ('Tarefa')
+        verbose_name_plural = ('Tarefas')
