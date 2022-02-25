@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+    <!--====== Bootstrap css ======-->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
+    <!-- Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/line-icons.css' %}">
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+    
+    <!-- Animate -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- Main Style -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- Responsive Style -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <title>To-Do List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12 col-12 col-sm-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>Minhas Tarefas</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <tbody><tr>
+                      <th class="text-center">
+                        <div class="custom-checkbox custom-checkbox-table custom-control">
+                          <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                          <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        </div>
+                      </th>
+                      <th>Tarefa</th>
+                      <th>Categoria</th>
+                      <th>Data de Entrega</th>
+                      <th>Ações</th>
+                    </tr>
+
+                    {% for task in object_list %}
+                    <tr>
+                      <td class="p-0 text-center">
+                        <div class="custom-checkbox custom-control">
+                          <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
+                          <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+                        </div>
+                      </td>
+                      <td>{{task.name}}</td>
+                      <td>{{task.category}}</td>
+                      <td>{{task.conclusion_date}}</td>
+                      <td>
+                        <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-danger btn-action" data-toggle="tooltip" title="" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody></table>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</body>
+</html>

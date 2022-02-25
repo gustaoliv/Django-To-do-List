@@ -24,7 +24,7 @@ class Task(Base):
     name = models.CharField('Nome', max_length=150)
     conclusion_date = models.DateField('Data de Conclusão')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    file = models.FileField('Arquivo', upload_to='uploads/')
+    file = models.FileField('Arquivo', upload_to='uploads/', blank=True)
     description = models.TextField('Descrição', max_length=400)
     done = models.BooleanField('Feito?', default=False)
 
