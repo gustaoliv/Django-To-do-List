@@ -64,7 +64,11 @@
 
                                 <td>
                                     <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                    <a class="btn btn-danger btn-action" href="{% url 'deletar-task' pk=task.pk %}" class="dropdown-item text-danger" data-toggle="modal" data-target="#delete-item-modal" id="delete-item"><i class="fas fa-trash"></i></a>
+                                    <a class="btn btn-danger btn-action"href="{% url 'deletar-task' task.id %}"
+                                    data-toggle="modal"
+                                    data-target="#delete-item-modal"
+                                    onclick="delete_user(this)"><i class="fas fa-trash"></i></a>
+
                                 </td>
 
                             </tr>
@@ -74,10 +78,12 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <p>Tem certeza que deseja deletar a tarefa: {{task.name}}?</p>
+                                            <p>Tem certeza que deseja excluir esta tarefa?</p>
                                         </div>
                                         <div class="justify-content-between mb-2 mr-2 text-right">
-                                            <form method="post" id="item-delete-form">
+                                            <form method="post"
+                                                  id="item-delete-form"
+                                            >
                                                 <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Deletar</button>
@@ -88,9 +94,9 @@
                             </div>
 
                             <script>
-                                $(document).on('click', '#delete-item', () => {
-                                    document.getElementById("item-delete-form").action = document.querySelector('#delete-item').href
-                                });
+                                function delete_user(selected_user){
+                                    document.getElementById("item-delete-form").action = selected_user.href
+                                }
                             </script>
 
 
