@@ -1,6 +1,6 @@
 body{
     background-color: #f6f6f6;
-    padding-top: 4%;
+    margin-top:20px;
 }
 
 .card {
@@ -21,8 +21,9 @@ body{
     padding: 10px 25px;
     display: flex;
     align-items: center;
-    
 }
+
+
 
 .card .card-header, .card .card-body, .card .card-footer {
     background-color: transparent;
@@ -178,4 +179,11 @@ body{
     font-size: 12px;
     min-width: 35px;
     min-height: 35px;
+}
+
+
+.inserir{
+    max-width: 300px;
+    margin-left: 30px;
+    margin-bottom: 5px;
 }

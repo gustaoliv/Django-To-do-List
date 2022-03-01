@@ -3,74 +3,191 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <!--====== Bootstrap css ======-->
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
-    <!-- Icon -->
-    <link rel="stylesheet" href="{% static 'fonts/line-icons.css' %}">
-    <!-- Owl carousel -->
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
-    
-    <!-- Animate -->
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    <!-- Main Style -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <!-- Responsive Style -->
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <title>To-Do List</title>
 </head>
 <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+    <br><br>
+
     <div class="container">
         <div class="col-md-12 col-12 col-sm-12">
             <div class="card">
-              <div class="card-header">
-                <h4>Minhas Tarefas</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <tbody><tr>
-                      <th class="text-center">
-                        <div class="custom-checkbox custom-checkbox-table custom-control">
-                          <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                          <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                        </div>
-                      </th>
-                      <th>Tarefa</th>
-                      <th>Categoria</th>
-                      <th>Data de Entrega</th>
-                      <th>Ações</th>
-                    </tr>
-
-                    {% for task in object_list %}
-                    <tr>
-                      <td class="p-0 text-center">
-                        <div class="custom-checkbox custom-control">
-                          <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                          <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                        </div>
-                      </td>
-                      <td>{{task.name}}</td>
-                      <td>{{task.category}}</td>
-                      <td>{{task.conclusion_date}}</td>
-                      <td>
-                        <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                        <a class="btn btn-danger btn-action" data-toggle="tooltip" title="" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                    
-                  </tbody></table>
+                <div class="card-header">
                 </div>
-              </div>
+                <center>
+                    <h4>Minhas Tarefas</h4>
+                    <button type="button" class="inserir btn btn-primary" data-toggle="modal" data-target="#add_task">Adicionar Tarefa</button>
+                </center>
+
+
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tbody><tr>
+                        <th class="text-center">
+                            <div class="custom-checkbox custom-checkbox-table custom-control">
+                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                            <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                            </div>
+                        </th>
+                        <th>Tarefa</th>
+                        <th>Categoria</th>
+                        <th>Data de Entrega</th>
+                        <th>Ações</th>
+                        </tr>
+                        
+                        {% for task in object_list %}
+
+                            <tr>
+                                <th class="text-center">
+                                    <div class="custom-checkbox custom-checkbox-table custom-control">
+                                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-{{task.id}}">
+                                    <label for="checkbox-{{task.id}}" class="custom-control-label">&nbsp;</label>
+                                    </div>
+                                </th>
+
+                                <td><a href="#vaga{{task.name|slugify}}" data-toggle="modal">{{task.name}}</a></td>
+
+                                <td>{{task.category}}</td>
+
+                                <td>{{task.conclusion_date}}</td>
+
+                                <td>
+                                    <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-danger btn-action" href="{% url 'deletar-task' pk=task.pk %}" class="dropdown-item text-danger" data-toggle="modal" data-target="#delete-item-modal" id="delete-item"><i class="fas fa-trash"></i></a>
+                                </td>
+
+                            </tr>
+
+                            <!-- Modal Delete -->
+                            <div class="modal fade" id="delete-item-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <p>Tem certeza que deseja deletar a tarefa: {{task.name}}?</p>
+                                        </div>
+                                        <div class="justify-content-between mb-2 mr-2 text-right">
+                                            <form method="post" id="item-delete-form">
+                                                <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Deletar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                $(document).on('click', '#delete-item', () => {
+                                    document.getElementById("item-delete-form").action = document.querySelector('#delete-item').href
+                                });
+                            </script>
+
+
+
+
+                            <div class="modal fade bd-example-modal-lg show" id="vaga{{task.name|slugify}}" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        {% block content %}
+                                        <div class="modal-body" id="dynamic-content">
+                                            <h4><strong>{{task.name}}</strong></h4>
+                                            <h6><i class="fas fa-swatchbook"></i>   {{task.category}}</h6>
+                                            <h6><i class="fas fa-calendar"></i>   {{task.conclusion_date}}</h6>
+                                            {% if task.file %}
+                                                <h6><i class="fas fa-file-alt"></i>   {{task.file}}</h6>
+                                            {% endif %}
+                                            <br>
+                                            <p>{{task.description}}</p>
+                                        </div>
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+
+                            
+
+                        {% endfor %}
+                        
+                        
+                        
+                    </tbody></table>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
+
+
+    
+    
+    
+
+
+
+
+
+
+    <div class="container">
+        <!-- Modal -->
+        <form name="form-task" id="form-task" class="form-horizontal" method="post" action="{% url 'adiciona_tarefa' %}">
+            {% csrf_token %}
+            <div class="modal fade" id="add_task" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h4 class="modal-title">Adicionar Tarefa</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name">Nome da Tarefa</label>
+                                <input type="text" class="form-control" id="id_name" name="name">
+                              </div>
+                            <div class="form-group">
+                                <label for="conclusion_date">Data de Conclusão</label>
+                                <input type="date" class="form-control" id="id_conclusion_date" name="conclusion_date">
+                            </div>
+                              <label for="category">Categoria</label>
+                            <select class="form-control" id="id_category" name="category">
+                                <option> </option>
+                                {% for c in categories %}
+                                    <option value={{c.id}}>{{c.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-group">
+                                <label for="description">Descrição</label>
+                                <textarea class="form-control" id="id_description" name="description" rows="4"></textarea>
+                            </div>
+                              
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    
 </body>
 </html>
