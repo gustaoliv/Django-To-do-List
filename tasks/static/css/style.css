@@ -129,25 +129,6 @@ body{
     font-size: 12px;
 }
 
-.progress-bar {
-    display: -ms-flexbox;
-    display: -webkit-box;
-    display: flex;
-    -ms-flex-direction: column;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    -ms-flex-pack: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    overflow: hidden;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #007bff;
-    -webkit-transition: width .6s ease;
-    transition: width .6s ease;
-}
 
 .bg-success {
     background-color: #54ca68 !important;

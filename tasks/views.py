@@ -6,16 +6,22 @@ from django.views.generic.list import ListView
 from .models import Task, Category
 from .forms import TaskForm
 from django.views.generic.edit import DeleteView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class ListTasks(ListView):
     model = Task
     template_name = 'tasks-list.html'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         return context
 
+    def get_queryset(self):
+        qs = self.model.objects.filter(author=self.request.user)
+        return qs
 
 def adiciona_tarefa(request):
     name = request.POST.get('name')
@@ -28,7 +34,10 @@ def adiciona_tarefa(request):
     form = TaskForm(request.POST)
 
     if form.is_valid():
-        form.save()
+        register = form.save(commit=False)
+        register.author = request.user
+        register.save()
+
 
     return redirect('lista-tarefas')
 

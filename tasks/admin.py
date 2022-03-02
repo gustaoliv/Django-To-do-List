@@ -9,4 +9,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('done', 'name', 'conclusion_date', 'category', 'created')
+    list_display = ('name', 'done', 'author', 'conclusion_date', 'category', 'created')

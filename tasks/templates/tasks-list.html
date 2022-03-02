@@ -34,12 +34,13 @@
                     <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody><tr>
-                        <th class="text-center">
+                        {% comment %} <th class="text-center">
                             <div class="custom-checkbox custom-checkbox-table custom-control">
                             <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                             </div>
-                        </th>
+                        </th> {% endcomment %}
+                        <th> </th>
                         <th>Tarefa</th>
                         <th>Categoria</th>
                         <th>Data de Entrega</th>
@@ -106,13 +107,14 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
+                                            <h4><strong>{{task.name}}</strong></h4>
                                             <button type="button" class="close" data-dismiss="modal">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         {% block content %}
                                         <div class="modal-body" id="dynamic-content">
-                                            <h4><strong>{{task.name}}</strong></h4>
+                                            
                                             <h6><i class="fas fa-swatchbook"></i>   {{task.category}}</h6>
                                             <h6><i class="fas fa-calendar"></i>   {{task.conclusion_date}}</h6>
                                             {% if task.file %}

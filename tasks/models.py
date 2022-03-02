@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class Base(models.Model):
@@ -21,6 +22,7 @@ class Category(Base):
         verbose_name_plural = ('Categorias')
 
 class Task(Base):
+    author = models.ForeignKey(get_user_model(), verbose_name='Autor', on_delete=models.CASCADE)
     name = models.CharField('Nome', max_length=150)
     conclusion_date = models.DateField('Data de Conclusão')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
