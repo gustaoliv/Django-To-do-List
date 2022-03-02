@@ -34,12 +34,6 @@
                     <div class="table-responsive">
                     <table class="table table-striped">
                         <tbody><tr>
-                        {% comment %} <th class="text-center">
-                            <div class="custom-checkbox custom-checkbox-table custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                            <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                            </div>
-                        </th> {% endcomment %}
                         <th> </th>
                         <th>Tarefa</th>
                         <th>Categoria</th>
@@ -50,14 +44,28 @@
                         {% for task in object_list %}
 
                             <tr>
-                                <th class="text-center">
-                                    <div class="custom-checkbox custom-checkbox-table custom-control">
-                                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-{{task.id}}">
-                                    <label for="checkbox-{{task.id}}" class="custom-control-label">&nbsp;</label>
-                                    </div>
-                                </th>
+                                {% if task.done %}
+                                    <th class="text-center">
+                                        <div class="custom-checkbox custom-checkbox-table custom-control">
+                                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-{{task.id}}" checked>
+                                        <label for="checkbox-{{task.id}}" class="custom-control-label">&nbsp;</label>
+                                        </div>
+                                    </th>
 
-                                <td><a href="#vaga{{task.name|slugify}}" data-toggle="modal">{{task.name}}</a></td>
+                                    <td><s><a href="#vaga{{task.name|slugify}}" data-toggle="modal">{{task.name}}</a></s></td>
+
+                                {% else %}
+                                    <th class="text-center">
+                                        <div class="custom-checkbox custom-checkbox-table custom-control">
+                                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-{{task.id}}">
+                                        <label for="checkbox-{{task.id}}" class="custom-control-label">&nbsp;</label>
+                                        </div>
+                                    </th>
+
+                                    <td><a href="#vaga{{task.name|slugify}}" data-toggle="modal">{{task.name}}</a></td>
+                                {% endif %}
+
+                                
 
                                 <td>{{task.category}}</td>
 

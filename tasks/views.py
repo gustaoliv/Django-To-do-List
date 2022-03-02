@@ -20,8 +20,9 @@ class ListTasks(ListView):
         return context
 
     def get_queryset(self):
-        qs = self.model.objects.filter(author=self.request.user)
+        qs = self.model.objects.filter(author=self.request.user).order_by('done', 'conclusion_date')
         return qs
+
 
 def adiciona_tarefa(request):
     name = request.POST.get('name')
