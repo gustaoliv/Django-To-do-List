@@ -4,7 +4,7 @@ from .models import Category, Task
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'author')
 
 
 @admin.register(Task)

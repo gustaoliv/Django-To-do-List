@@ -12,6 +12,7 @@ class Base(models.Model):
 
 
 class Category(Base):
+    author = models.ForeignKey(get_user_model(), verbose_name='Autor', on_delete=models.CASCADE)
     name = models.CharField('Nome', max_length=50)
 
     def __str__(self):

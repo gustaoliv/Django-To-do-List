@@ -16,7 +16,7 @@ class ListTasks(ListView):
     template_name = 'tasks-list.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = Category.objects.filter(author=self.request.user)
         return context
 
     def get_queryset(self):
@@ -48,7 +48,10 @@ def adiciona_categoria(request):
     form = CategoryForm(request.POST)
 
     if form.is_valid():
-        register = form.save()
+        register = form.save(commit=False)
+        register.author = request.user
+        register.save()
+
     return redirect('lista-tarefas')
     
 
