@@ -21,11 +21,14 @@ body{
     padding: 10px 25px;
     display: flex;
     align-items: center;
+    background-color: #007bff;
+    padding: 20px 25px;
+    margin-bottom: 20px;
 }
 
 
 
-.card .card-header, .card .card-body, .card .card-footer {
+.card .card .card-body, .card .card-footer {
     background-color: transparent;
     padding: 20px 25px;
 }
