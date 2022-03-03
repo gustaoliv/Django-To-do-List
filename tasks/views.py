@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from .models import Task, Category
-from .forms import TaskForm
+from .forms import TaskForm, CategoryForm
 from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -42,6 +42,15 @@ def adiciona_tarefa(request):
 
     return redirect('lista-tarefas')
 
+
+
+def adiciona_categoria(request):
+    form = CategoryForm(request.POST)
+
+    if form.is_valid():
+        register = form.save()
+    return redirect('lista-tarefas')
+    
 
 class TaskDeleteView(DeleteView):
     model = Task

@@ -171,3 +171,11 @@ body{
     margin-left: 30px;
     margin-bottom: 5px;
 }
+
+.div-button{
+    display: inline-block;
+}
+
+.categ{
+    width: 90%;
+}
