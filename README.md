@@ -42,7 +42,7 @@ Projeto desenvolvido para aplicação de conhecimentos adquiridos em cursos de D
 :heavy_check_mark: Tela de login e cadastro;\
 :construction: Upload de arquivos no cadastro de tarefas;\
 :construction: Adicionar priorização de tarefas;\
-:construction: Funcionalidade de editar e deletar tarefas;\
+:heavy_check_mark: Funcionalidade de editar e deletar tarefas;\
 :construction: Mudar status da tarefa ao clicar no checkbox;\
 
 
