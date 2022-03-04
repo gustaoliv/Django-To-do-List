@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from .models import Task, Category
 from .forms import TaskForm, CategoryForm
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
@@ -59,3 +59,14 @@ class TaskDeleteView(DeleteView):
     model = Task
     success_url = reverse_lazy("lista-tarefas")
 
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Task, id=id_)
+
+
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    success_url = reverse_lazy("lista-tarefas")
+    # fields = ['name', 'conclusion_date', 'category', 'file', 'description', 'done']
+    fields = ['name',]

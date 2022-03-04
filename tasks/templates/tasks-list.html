@@ -72,15 +72,22 @@
                                 <td>{{task.conclusion_date}}</td>
 
                                 <td>
-                                    <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                    {% comment %} editar {% endcomment %}
+                                    <a class="btn btn-primary btn-action"href="{% url 'editar-task' task.id %}"
+                                    data-toggle="modal"
+                                    data-target="#update-item-modal"
+                                    onclick="update_task(this)"><i class="fas fa-pencil-alt"></i></a>
+
+                                    {% comment %} deletar {% endcomment %}
                                     <a class="btn btn-danger btn-action"href="{% url 'deletar-task' task.id %}"
                                     data-toggle="modal"
                                     data-target="#delete-item-modal"
-                                    onclick="delete_user(this)"><i class="fas fa-trash"></i></a>
+                                    onclick="delete_task(this)"><i class="fas fa-trash"></i></a>
 
                                 </td>
 
                             </tr>
+
 
                             <!-- Modal Delete -->
                             <div class="modal fade" id="delete-item-modal">
@@ -91,8 +98,7 @@
                                         </div>
                                         <div class="justify-content-between mb-2 mr-2 text-right">
                                             <form method="post"
-                                                  id="item-delete-form"
-                                            >
+                                                  id="item-delete-form">
                                                 <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Deletar</button>
@@ -103,14 +109,77 @@
                             </div>
 
                             <script>
-                                function delete_user(selected_user){
-                                    document.getElementById("item-delete-form").action = selected_user.href
+                                function delete_task(selected_task){
+                                    document.getElementById("item-delete-form").action = selected_task.href
                                 }
                             </script>
 
 
 
 
+                            <!-- Modal Update -->
+                            <div class="modal fade" id="update-item-modal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <h4>Editar tarefa</h4>
+                                        </div>
+                                        <div class="justify-content-between mb-2 mr-2">
+                                            <form method="post" id="item-update-form">
+                                                {% csrf_token %}
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Nome da Tarefa</label>
+                                                        <input type="text" class="form-control" id="id_name" name="name" {% comment %} value="{{task.name}}"{% endcomment %}> 
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="conclusion_date">Data de Conclusão</label>
+                                                        <input type="date" class="form-control" id="id_conclusion_date" name="conclusion_date">
+                                                    </div>
+                                                    <div class="div-button categ">
+                                                      <label for="category">Categoria</label>
+                                                      <select class="form-control" id="id_category" name="category">
+                                                        <option> </option>
+                                                        {% for c in categories %}
+                                                            {% comment %}
+                                                            {% if c.id == task.category.id %}
+                                                                <option value={{c.id}} selected>{{c.name|title}}</option>
+                                                            {% else %}
+                                                                <option value={{c.id}}>{{c.name|title}}</option>
+                                                            {% endif %}
+                                                            {% endcomment %}
+                                                            <option value={{c.id}}>{{c.name|title}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    </div>
+                                                    <div class="div-button">
+                                                        <a type="button" class="btn btn-primary btn-action mr-1" data-toggle="modal" data-target="#add_cat"><i class="fas fa-plus"></i></a>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description">Descrição</label>
+                                                        <textarea class="form-control" id="id_description" name="description" rows="4" value={% comment %}{{task.description}}{% endcomment %}></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
+                                                
+                                                <button type="submit" class="btn btn-primary" id="confirm-update-item-button">Editar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                function update_task(selected_task){
+                                    document.getElementById("item-update-form").action = selected_task.href
+                                }
+                            </script>
+
+
+
+                            <!-- Modal Details View -->
                             <div class="modal fade bd-example-modal-lg show" id="vaga{{task.name|slugify}}" role="dialog">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -163,7 +232,7 @@
 
 
 
-
+    <!-- Modal  Create Task -->
     <div class="container">
         <!-- Modal -->
         <form name="form-task" id="form-task" class="form-horizontal" method="post" action="{% url 'adiciona_tarefa' %}">
