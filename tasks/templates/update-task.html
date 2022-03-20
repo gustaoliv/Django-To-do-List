@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h4>Editar tarefa</h4>
+    <form method="post" id="item-update-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Nome da Tarefa</label>
+            <input type="text" class="form-control" id="id_name" name="name" value="{{object.name}}"> 
+        </div>
+        <div class="form-group">
+            <label for="conclusion_date">Data de Conclusão</label>
+            <input type="date" class="form-control" id="id_conclusion_date" name="conclusion_date" value="{{object.conclusion_date|date:'Y-m-d'}}">
+        </div>
+        <div class="div-button categ">
+          <label for="category">Categoria</label>
+          <select class="form-control" id="id_category" name="category">
+            <option> </option>
+            {% for c in categories %}
+                {% comment %}
+                {% if c.id == task.category.id %}
+                    <option value={{c.id}} selected>{{c.name|title}}</option>
+                {% else %}
+                    <option value={{c.id}}>{{c.name|title}}</option>
+                {% endif %}
+                {% endcomment %}
+                <option value={{c.id}}>{{c.name|title}}</option>
+            {% endfor %}
+        </select>
+        </div>
+        <div class="div-button">
+            <a type="button" class="btn btn-primary btn-action mr-1" data-toggle="modal" data-target="#add_cat"><i class="fas fa-plus"></i></a>
+        </div>
+        <div class="form-group">
+            <label for="description">Descrição</label>
+            <textarea class="form-control" id="id_description" name="description" rows="4" >{{object.description}}</textarea>
+        </div>
+    </div>
+    <div class="text-right">
+    <a type="button" class="btn btn-secondary mr-1" href="{% url 'lista-tarefas' %}">Cancelar</a>
+    
+    <button type="submit" class="btn btn-primary" id="confirm-update-item-button">Confirmar</button>
+    </div>
+    </form>
+</div>
+
+{% include 'modal-add-category.html' %}
+
+{% endblock %}
