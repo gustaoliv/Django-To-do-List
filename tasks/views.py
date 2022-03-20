@@ -25,34 +25,37 @@ class ListTasks(ListView):
 
 
 def adiciona_tarefa(request):
-    name = request.POST.get('name')
-    conclusion_date = request.POST.get('conclusion_date')
-    category = request.POST.get('category')
-    if request.POST.get('file'):
-        file = request.POST.get('file')
-    description = request.POST.get('description')
+    context = {
+        'categories': Category.objects.filter(author=request.user)
+    }
+    if request.method == 'GET':
+        return render(request, 'add-task.html', context)
+    else:
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            register = form.save(commit=False)
+            register.author = request.user
+            register.save()
 
-    form = TaskForm(request.POST)
-
-    if form.is_valid():
-        register = form.save(commit=False)
-        register.author = request.user
-        register.save()
-
-
-    return redirect('lista-tarefas')
+        return redirect('lista-tarefas')
 
 
 
 def adiciona_categoria(request):
-    form = CategoryForm(request.POST)
 
-    if form.is_valid():
-        register = form.save(commit=False)
-        register.author = request.user
-        register.save()
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
 
-    return redirect('lista-tarefas')
+        if form.is_valid():
+            register = form.save(commit=False)
+            register.author = request.user
+            register.save()
+        
+        return redirect('adiciona_tarefa')
+    else:
+        form = CategoryForm(request.POST)
+
+        
     
 
 class TaskDeleteView(DeleteView):

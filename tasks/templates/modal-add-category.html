@@ -1,0 +1,30 @@
+{% block content %}
+<!-- Modal adicionar categoria -->
+<div class="container">
+    <!-- Modal -->
+    <form name="form-cat" id="form-cat" class="form-horizontal" method="post" action="{% url 'adiciona-categoria' %}">
+        {% csrf_token %}
+        <div class="modal fade" id="add_cat" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Adicionar Categoria</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Nome da Categoria</label>
+                            <input type="text" class="form-control" id="id_name" name="name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

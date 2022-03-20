@@ -24,10 +24,17 @@
             <div class="card">
                 <div class="card-header">
                 </div>
-                <center>
-                    <h3>Minhas Tarefas</h3>
-                    <button type="button" class="inserir btn btn-primary" data-toggle="modal" data-target="#add_task">Adicionar Tarefa</button>
-                </center>
+                
+                <div class="row">
+                    <div class="col-md-9">
+                        <h3 class="ml-5">Minhas Tarefas</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <a type="button" class="inserir btn btn-primary" href="{% url 'adiciona_tarefa' %}">Adicionar Tarefa</a>
+                    </div>
+                </div>
+                    
+                
 
 
                 <div class="card-body">
@@ -227,90 +234,6 @@
     
     
     
-
-
-
-
-
-    <!-- Modal  Create Task -->
-    <div class="container">
-        <!-- Modal -->
-        <form name="form-task" id="form-task" class="form-horizontal" method="post" action="{% url 'adiciona_tarefa' %}">
-            {% csrf_token %}
-            <div class="modal fade" id="add_task" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h4 class="modal-title">Adicionar Tarefa</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name">Nome da Tarefa</label>
-                                <input type="text" class="form-control" id="id_name" name="name">
-                              </div>
-                            <div class="form-group">
-                                <label for="conclusion_date">Data de Conclusão</label>
-                                <input type="date" class="form-control" id="id_conclusion_date" name="conclusion_date">
-                            </div>
-                            <div class="div-button categ">
-                              <label for="category">Categoria</label>
-                              <select class="form-control" id="id_category" name="category">
-                                <option> </option>
-                                {% for c in categories %}
-                                    <option value={{c.id}}>{{c.name|title}}</option>
-                                {% endfor %}
-                            </select>
-                            </div>
-                            <div class="div-button">
-                                <a type="button" class="btn btn-primary btn-action mr-1" data-toggle="modal" data-target="#add_cat"><i class="fas fa-plus"></i></a>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Descrição</label>
-                                <textarea class="form-control" id="id_description" name="description" rows="4"></textarea>
-                            </div>
-                              
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-
-    <!-- Modal adicionar categoria -->
-    <div class="container">
-        <!-- Modal -->
-        <form name="form-cat" id="form-cat" class="form-horizontal" method="post" action="{% url 'adiciona-categoria' %}">
-            {% csrf_token %}
-            <div class="modal fade" id="add_cat" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h4 class="modal-title">Adicionar Categoria</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name">Nome da Categoria</label>
-                                <input type="text" class="form-control" id="id_name" name="name">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
     
 </body>
 </html>
