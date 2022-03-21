@@ -13,7 +13,7 @@
 <!-- Status -->
 
 <h4 align="center"> 
-	🚧  Em construção...  🚧
+	🌐 Projeto Concluído 🌐
 </h4> 
 
 <hr>
@@ -34,16 +34,44 @@
 
 Projeto desenvolvido para aplicação de conhecimentos adquiridos em cursos de Django. Aplicação com utilização prática para organização de tarefas do dia a dia.
 
+<div align="center"> 
+  <img src="todo/prints/login.png"/>
+  &#xa0;
+</div>
+
+<div align="center"> 
+  <img src="todo/prints/register.png"/>
+  &#xa0;
+</div>
+
+<div align="center"> 
+  <img src="todo/prints/home.png"/>
+  &#xa0;
+</div>
+
+<div align="center"> 
+  <img src="todo/prints/add-task.png"/>
+  &#xa0;
+</div>
+
+<div align="center"> 
+  <img src="todo/prints/update-task.png"/>
+  &#xa0;
+</div>
+
+<div align="center"> 
+  <img src="todo/prints/delete-task.png"/>
+  &#xa0;
+</div>
+
 ## :sparkles: Funcionalidades ##
 
 :heavy_check_mark: Cadastro de tarefas pelo front;\
 :heavy_check_mark: Listagem de tarefas;\
 :heavy_check_mark: PopUp detalhes da tarefa;\
 :heavy_check_mark: Tela de login e cadastro;\
-:construction: Upload de arquivos no cadastro de tarefas;\
-:construction: Adicionar priorização de tarefas;\
 :heavy_check_mark: Funcionalidade de editar e deletar tarefas;\
-:construction: Mudar status da tarefa ao clicar no checkbox;\
+:heavy_check_mark: Mudar status da tarefa ao clicar no checkbox;\
 
 
 ## :rocket: Tecnologias ##
@@ -74,6 +102,10 @@ $ /venv/Scripts/activate
 
 # Instalação das dependências
 $ pip install -r requirements.txt
+
+# Crie um arquivo .env no diretório do projeto, com o conteúdo:
+SECRET_KEY=COLOQUE AQUI A SUA CHAVE DE SEGURANÇA
+DEBUG=True
 
 # Iniciando aplicação
 $ python manage.py runserver
