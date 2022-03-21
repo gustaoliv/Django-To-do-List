@@ -35,6 +35,13 @@
             <label for="description">Descrição</label>
             <textarea class="form-control" id="id_description" name="description" rows="4" >{{object.description}}</textarea>
         </div>
+
+        <div class="form-group">
+            <label for="id_done">Feito?</label>
+            <input type="checkbox" name="done" id="id_done" {% if object.done %}checked{% endif %}>
+        </div>
+
+
     </div>
     <div class="text-right">
     <a type="button" class="btn btn-secondary mr-1" href="{% url 'lista-tarefas' %}">Cancelar</a>

@@ -73,8 +73,8 @@ class TaskUpdateView(UpdateView):
     model = Task
     template_name = 'update-task.html'
     success_url = reverse_lazy("lista-tarefas")
-    # fields = ['name', 'conclusion_date', 'category', 'file', 'description', 'done']
-    fields = ['name',]
+    fields = ['name', 'conclusion_date', 'category', 'description', 'done']
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
