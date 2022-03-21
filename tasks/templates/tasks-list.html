@@ -48,27 +48,21 @@
                         <th>Ações</th>
                         </tr>
                         
-                        {% for task in object_list %}
+                        {% for task in tasks %}
 
                             <tr>
+                                <th class="text-center">
+                                    <form method="post" id="checkbox-update-form" action="{% url 'check-task' task.id %}">
+                                        {% csrf_token %}
+                                        <input name="id_tsk" id="id_tsk" type="text" value="{{task.id}}" style="display: none">
+                                        <div class="form-group">
+                                            <input onChange="this.form.submit()" type="checkbox" name="done" id="id_done{{task.id}}" {% if task.done %}checked{% endif %}>
+                                        </div>
+                                    </form>
+                                </th>
                                 {% if task.done %}
-                                    <th class="text-center">
-                                        <div class="custom-checkbox custom-checkbox-table custom-control">
-                                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-{{task.id}}" checked>
-                                        <label for="checkbox-{{task.id}}" class="custom-control-label">&nbsp;</label>
-                                        </div>
-                                    </th>
-
                                     <td><s><a href="#vaga{{task.name|slugify}}" data-toggle="modal">{{task.name}}</a></s></td>
-
                                 {% else %}
-                                    <th class="text-center">
-                                        <div class="custom-checkbox custom-checkbox-table custom-control">
-                                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-{{task.id}}">
-                                        <label for="checkbox-{{task.id}}" class="custom-control-label">&nbsp;</label>
-                                        </div>
-                                    </th>
-
                                     <td><a href="#vaga{{task.name|slugify}}" data-toggle="modal">{{task.name}}</a></td>
                                 {% endif %}
 
@@ -118,10 +112,7 @@
                                 </div>
                             </div>
 
-                           
-
-                            
-
+                        
                         {% endfor %}
                         
                         

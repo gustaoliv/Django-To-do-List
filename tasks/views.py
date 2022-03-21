@@ -1,3 +1,4 @@
+import re
 from typing import List
 from unicodedata import name
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,18 +11,26 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class ListTasks(ListView):
-    model = Task
-    template_name = 'tasks-list.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.filter(author=self.request.user)
-        return context
+login_required(login_url='login')
+def index(request, id=None):
+    tasks = Task.objects.filter(author=request.user)
+    categories = Category.objects.filter(author=request.user)
+    context = {
+        'tasks': tasks,
+        'categories': categories,
+    }
+    if request.method == 'GET':
+        return render(request, 'tasks-list.html', context)
+    else:
+        task = Task.objects.get(id=id)
+        if task.done:
+            task.done = False
+        else:
+            task.done = True
+        task.save()
+        return redirect('lista-tarefas')
 
-    def get_queryset(self):
-        qs = self.model.objects.filter(author=self.request.user).order_by('done', 'conclusion_date')
-        return qs
+
 
 
 login_required(login_url='login')
