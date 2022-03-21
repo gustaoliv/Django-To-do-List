@@ -24,6 +24,7 @@ class ListTasks(ListView):
         return qs
 
 
+login_required(login_url='login')
 def adiciona_tarefa(request):
     context = {
         'categories': Category.objects.filter(author=request.user)
@@ -40,7 +41,7 @@ def adiciona_tarefa(request):
         return redirect('lista-tarefas')
 
 
-
+login_required(login_url='login')
 def adiciona_categoria(request):
 
     if request.method == 'POST':
@@ -57,7 +58,7 @@ def adiciona_categoria(request):
 
         
     
-
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class TaskDeleteView(DeleteView):
     model = Task
     template_name = 'delete-task.html'
@@ -68,7 +69,7 @@ class TaskDeleteView(DeleteView):
         return get_object_or_404(Task, id=id_)
 
 
-
+@method_decorator(login_required(login_url='login'), name='dispatch')
 class TaskUpdateView(UpdateView):
     model = Task
     template_name = 'update-task.html'
