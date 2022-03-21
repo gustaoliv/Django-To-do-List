@@ -18,14 +18,13 @@
           <select class="form-control" id="id_category" name="category">
             <option> </option>
             {% for c in categories %}
-                {% comment %}
-                {% if c.id == task.category.id %}
+                
+                {% if c.id == object.category.id %}
                     <option value={{c.id}} selected>{{c.name|title}}</option>
                 {% else %}
                     <option value={{c.id}}>{{c.name|title}}</option>
                 {% endif %}
-                {% endcomment %}
-                <option value={{c.id}}>{{c.name|title}}</option>
+                
             {% endfor %}
         </select>
         </div>

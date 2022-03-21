@@ -75,4 +75,10 @@ class TaskUpdateView(UpdateView):
     # fields = ['name', 'conclusion_date', 'category', 'file', 'description', 'done']
     fields = ['name',]
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.filter(author=self.request.user)
+        return context
+
+
    
