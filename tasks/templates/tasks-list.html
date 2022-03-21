@@ -85,39 +85,11 @@
 
                                     {% comment %} deletar {% endcomment %}
                                     <a class="btn btn-danger btn-action"href="{% url 'deletar-task' task.id %}"
-                                    data-toggle="modal"
-                                    data-target="#delete-item-modal"
-                                    onclick="delete_task(this)"><i class="fas fa-trash"></i></a>
+                                    ><i class="fas fa-trash"></i></a>
 
                                 </td>
 
                             </tr>
-
-
-                            <!-- Modal Delete -->
-                            <div class="modal fade" id="delete-item-modal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <p>Tem certeza que deseja excluir esta tarefa?</p>
-                                        </div>
-                                        <div class="justify-content-between mb-2 mr-2 text-right">
-                                            <form method="post"
-                                                  id="item-delete-form">
-                                                <button type="button" class="btn btn-secondary mr-1" data-dismiss="modal">Cancelar</button>
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Deletar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                function delete_task(selected_task){
-                                    document.getElementById("item-delete-form").action = selected_task.href
-                                }
-                            </script>
 
 
                             <!-- Modal Details View -->

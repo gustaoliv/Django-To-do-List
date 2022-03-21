@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <h4>Tem certeza que deseja excluir esta tarefa?</h4>
+    <p><i class="fas fa-tasks"></i> {{object.name}}</p>
+    <div class="justify-content-between mb-2 mr-2 text-left">
+        <form method="post"
+              id="item-delete-form">
+            <a type="button" class="btn btn-secondary mr-1" href="{% url 'lista-tarefas' %}">Cancelar</a>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" id="confirm-delete-item-button">Deletar</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -60,6 +60,7 @@ def adiciona_categoria(request):
 
 class TaskDeleteView(DeleteView):
     model = Task
+    template_name = 'delete-task.html'
     success_url = reverse_lazy("lista-tarefas")
 
     def get_object(self):
