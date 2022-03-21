@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 login_required(login_url='login')
 def index(request, id=None):
-    if not request.user == 'nonymousUser':
+    if request.user == 'AnonymousUser':
         return redirect('login')
     tasks = Task.objects.filter(author=request.user).order_by('conclusion_date', 'done')
     categories = Category.objects.filter(author=request.user)
